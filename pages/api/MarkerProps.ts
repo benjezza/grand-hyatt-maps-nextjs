@@ -6,5 +6,6 @@ export interface MarkerProps {
   description: string;
   image: string;
   link: string;
+  nav?: string;
   color?: string;
 }
