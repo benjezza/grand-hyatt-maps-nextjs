@@ -1,4 +1,16 @@
-import { MarkerProps } from './MarkerProps';
+const homeColor = '#bd2238';
+const markerColor = '#b000b5';
+export interface MarkerProps {
+  index: number;
+  lng: number;
+  lat: number;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+  nav?: string;
+  color?: string;
+}
 
 export const markers: MarkerProps[] = [
   {
@@ -6,11 +18,12 @@ export const markers: MarkerProps[] = [
     title: 'Grand Hyatt Melbourne',
     lng: 144.96968999086687,
     lat: -37.814759644486415,
-    description: 'Located in the centre of Melbournes high fashion and fine dining scene on prestigious Collins Street, Grand Hyatt Melbourne is the citys centre of luxury.',
+    description:
+      'Located in the centre of Melbournes high fashion and fine dining scene on prestigious Collins Street, Grand Hyatt Melbourne is the citys centre of luxury.',
     image: './images/grandHyatt.jpg',
     link: 'https://www.hyatt.com/en-US/hotel/australia/grand-hyatt-melbourne/melbo?src=corp_lclb_gmb_seo_melbo',
     nav: 'https://goo.gl/maps/L7HLoqAfGv6PXcQn9',
-    color: '#bd2238',
+    color: homeColor,
   },
   {
     index: 0,
@@ -22,7 +35,7 @@ export const markers: MarkerProps[] = [
     image: './images/gimlet.jpg',
     link: 'https://gimlet.melbourne/',
     nav: 'https://goo.gl/maps/PXgCKK24cbSTqLQBA',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 1,
@@ -34,7 +47,7 @@ export const markers: MarkerProps[] = [
     image: './images/grillAmericano.jpg',
     link: 'http://www.grillamericano.com/',
     nav: 'https://goo.gl/maps/a85mjfShX1QjkqaQA',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 2,
@@ -46,7 +59,7 @@ export const markers: MarkerProps[] = [
     image: './images/cecconi.jpg',
     link: 'https://www.cecconi.com/',
     nav: 'https://goo.gl/maps/9bQUeCAd8aedY1YDA',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 3,
@@ -58,7 +71,7 @@ export const markers: MarkerProps[] = [
     image: './images/chinchin.jpg',
     link: 'https://www.chinchinrestaurant.com.au/',
     nav: 'https://goo.gl/maps/4eT9rvZhKYxzmUhA9',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 4,
@@ -70,7 +83,7 @@ export const markers: MarkerProps[] = [
     image: './images/supernormal.jpg',
     link: 'https://www.supernormal.net.au/',
     nav: 'https://goo.gl/maps/LT3e5wF3ixyfV752A',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 5,
@@ -82,7 +95,7 @@ export const markers: MarkerProps[] = [
     image: './images/philippe.jpg',
     link: 'https://www.philipperestaurant.com.au/',
     nav: 'https://goo.gl/maps/fwn56vpW6BNCPazQ8',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 6,
@@ -94,7 +107,7 @@ export const markers: MarkerProps[] = [
     image: './images/ilSolitoPosto.jpg',
     link: 'https://ilsolitoposto.com.au/',
     nav: 'https://goo.gl/maps/qT6WzVvgXQqdFJvP9',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 7,
@@ -106,7 +119,7 @@ export const markers: MarkerProps[] = [
     image: './images/lucyLiu.jpg',
     link: 'https://lucylius.com.au/',
     nav: 'https://goo.gl/maps/vLzBpB4cWq6Ud5rh7',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 8,
@@ -118,7 +131,7 @@ export const markers: MarkerProps[] = [
     image: './images/codaMelbourne.jpg',
     link: 'https://www.codarestaurant.com.au/',
     nav: 'https://goo.gl/maps/Bfkq17aaJCTLyxNJA',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 9,
@@ -130,7 +143,7 @@ export const markers: MarkerProps[] = [
     image: './images/tonka.jpg',
     link: 'https://www.tonkarestaurant.com.au/',
     nav: 'https://goo.gl/maps/PX8UJra6RJya9Kav6',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 10,
@@ -142,7 +155,7 @@ export const markers: MarkerProps[] = [
     image: './images/leehofook.jpg',
     link: 'https://www.leehofook.com.au/',
     nav: 'https://goo.gl/maps/pPYAf8NKVQ7Lmeyu9',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 11,
@@ -154,7 +167,7 @@ export const markers: MarkerProps[] = [
     image: './images/botswanaButchery.jpg',
     link: 'http://www.botswanabutchery.com.au/',
     nav: 'https://goo.gl/maps/FSdeLFR9Li2Qou7R9',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 12,
@@ -166,7 +179,7 @@ export const markers: MarkerProps[] = [
     image: './images/frenchBrasserie.jpg',
     link: 'https://www.thefrenchbrasserie.com.au/',
     nav: 'https://goo.gl/maps/qAGLbBYxNWpxnF2F6',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 13,
@@ -178,7 +191,7 @@ export const markers: MarkerProps[] = [
     image: './images/flowerDrum.jpg',
     link: 'https://www.flowerdrum.melbourne/',
     nav: 'https://goo.gl/maps/csuAbLQaLTcinyW57',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 14,
@@ -190,7 +203,7 @@ export const markers: MarkerProps[] = [
     image: './images/robata.jpg',
     link: 'https://www.robata.com.au/',
     nav: 'https://goo.gl/maps/RLDivWuWyT5z69tv6',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 15,
@@ -202,7 +215,7 @@ export const markers: MarkerProps[] = [
     image: './images/attica.jpg',
     link: 'https://www.attica.com.au/',
     nav: 'https://goo.gl/maps/JLjtjWA5gvSz8fHT9',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 16,
@@ -214,7 +227,7 @@ export const markers: MarkerProps[] = [
     image: './images/vueDeMonde.jpg',
     link: 'https://www.vuedemonde.com.au/',
     nav: 'https://goo.gl/maps/Xb32SonHuWrXznVF9',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 17,
@@ -226,7 +239,7 @@ export const markers: MarkerProps[] = [
     image: './images/donovans.jpg',
     link: 'https://www.donovans.com.au/',
     nav: 'https://goo.gl/maps/4ecRG6VnYd7yk3SX7',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 18,
@@ -238,18 +251,19 @@ export const markers: MarkerProps[] = [
     image: './images/diStasioCitta.jpg',
     link: 'https://www.distasio.com.au/',
     nav: 'https://goo.gl/maps/x9mBqukACgGcMUBy8',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 19,
     title: 'Nomad',
     lng: 144.96831040742822,
     lat: -37.816189704885865,
-    description: 'Nomad Melbourne is a wine bar and restaurant located in Flinders Lane. The menu features a range of Mediterranean-inspired dishes with a focus on wood-fired cooking and shareable plates, using locally sourced and sustainable ingredients. The restaurant has a warm and inviting atmosphere with a rustic design and an extensive wine list.',
+    description:
+      'Nomad Melbourne is a wine bar and restaurant located in Flinders Lane. The menu features a range of Mediterranean-inspired dishes with a focus on wood-fired cooking and shareable plates, using locally sourced and sustainable ingredients. The restaurant has a warm and inviting atmosphere with a rustic design and an extensive wine list.',
     image: './images/nomad.jpg',
     link: 'https://nomad.melbourne/',
     nav: 'https://goo.gl/maps/JPTtH7S74a5GUdi3A',
-    color: '#bada55',
+    color: markerColor,
   },
   {
     index: 20,
@@ -261,6 +275,6 @@ export const markers: MarkerProps[] = [
     image: './images/movida.jpg',
     link: 'https://www.movida.com.au/',
     nav: 'https://goo.gl/maps/aNpURPsvyHELPdJw5',
-    color: '#bada55',
+    color: markerColor,
   },
 ];

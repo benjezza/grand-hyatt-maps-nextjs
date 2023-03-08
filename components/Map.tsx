@@ -38,9 +38,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
         <div style='position: relative'>
     <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
       <path d="M0 0h24v24H0z" fill="none"/>
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${
-        markerProps.color
-      }" />
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
     </svg>
   </div>
     `;
@@ -66,7 +64,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
           setPopup(newPopup);
           map.flyTo({
             center: [markerProps.lng, markerProps.lat],
-            offset: [0, 350],
+            offset: [0, 150],
             zoom: 16,
             duration: 3000,
           });
@@ -87,25 +85,25 @@ const Map: React.FC<MapProps> = ({ className }) => {
   return (
     <div className={className} ref={mapContainerRef}>
       <div
-        className="z-10 absolute top-10 left-10 w-auto bg-white p-2 flex flex-wrap flex-col justify-between"
+        className="z-10 fixed bottom-0 left-0 w-full bg-white p-4 flex flex-wrap flex-col justify-between"
         onClick={handleLegendClick} // add event listener here
       >
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
-          className="cursor-pointer p-2 mr-1 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left whitespace-nowrap"
+          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
             const markerProps = markers[index];
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
-              offset: [0, 250],
+              offset: [0, 150],
               zoom: 18,
               duration: 3000,
             });
           }}
         >
           {markers.map((markerProps, index) => (
-            <option key={index} value={index}>
+            <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
             </option>
           ))}

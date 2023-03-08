@@ -19,6 +19,7 @@ body {
   left: 0;
   width: 80dvw;
   height: 100%;
+  padding-top: 120px;
 }
 .mapboxgl-popup-content {
   width: 70dvw;
