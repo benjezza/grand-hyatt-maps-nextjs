@@ -9,6 +9,8 @@ interface MapProps {
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
+  //Uncomment to show zoom level (there are three places to uncomment)
+  //const [zoomLevel, setZoomLevel] = useState<number>(14);
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
@@ -30,6 +32,13 @@ const Map: React.FC<MapProps> = ({ className }) => {
       const nav = new mapboxgl.NavigationControl();
       newMap.addControl(nav, 'top-right');
     }
+
+    // Uncomment to show zoom level
+    // if (map) {
+    //   map.on('zoom', () => {
+    //     setZoomLevel(map.getZoom());
+    //   });
+    // }
 
     if (map) {
       markers.forEach((markerProps) => {
@@ -64,11 +73,36 @@ const Map: React.FC<MapProps> = ({ className }) => {
           setPopup(newPopup);
           map.flyTo({
             center: [markerProps.lng, markerProps.lat],
-            offset: [0, 150],
+            offset: [0, 200],
             zoom: 16,
             duration: 3000,
           });
         });
+
+         // Add title label above the marker icon for high zoom levels
+  map.on('zoom', () => {
+    if (map.getZoom() > 16) {
+      marker.getElement().innerHTML = `
+        <div style='position: relative'>
+          <h3 style='font-size: 1em; margin: -20px 0 0 -20px;'>${markerProps.title}</h3>
+          <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
+            </svg>
+          </div>
+        `;
+      } else {
+        marker.getElement().innerHTML = `
+          <div style='position: relative'>
+            <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
+            </svg>
+          </div>
+        `;
+      }
+    });
+  
       });
     }
   }, [map]);
@@ -84,6 +118,8 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
   return (
     <div className={className} ref={mapContainerRef}>
+      {/* Uncomment to show zoom level */}
+      {/* <div className="mt-12 absolute top-28 p-12 bg-orange-400 text-3xl z-50">{zoomLevel.toFixed(1)}</div> */} 
       <div
         className="z-10 fixed bottom-0 left-0 w-full bg-white p-4 flex flex-wrap flex-col justify-between"
         onClick={handleLegendClick} // add event listener here

@@ -112,8 +112,8 @@ export const markers: MarkerProps[] = [
   {
     index: 7,
     title: 'Lucy Liu Kitchen and Bar',
-    lng: 144.96995750011598,
-    lat: -37.815989275060446,
+    lng: 144.96995582685383,
+    lat: -37.81598808228898, 
     description:
       'Lucy Liu Kitchen and Bar is an Asian fusion restaurant. The menu features a creative blend of Asian flavors with a modern twist, using fresh, locally sourced ingredients. The restaurant has a vibrant, stylish atmosphere with street art, colorful lanterns, and a bustling bar.',
     image: './images/lucyLiu.jpg',
@@ -160,8 +160,8 @@ export const markers: MarkerProps[] = [
   {
     index: 11,
     title: 'Botswana Butchery Melbourne',
-    lng: 144.96995750011598,
-    lat: -37.815989275060446,
+    lng: 144.97230628188774,
+    lat: -37.814763188463985, 
     description:
       'Botswana Butchery Melbourne is a fine dining restaurant. The menu features a selection of premium meats, seafood, and game dishes, as well as an extensive wine list. The restaurant has a sophisticated, elegant atmosphere with plush furnishings, crystal chandeliers, and a stunning city view.',
     image: './images/botswanaButchery.jpg',
