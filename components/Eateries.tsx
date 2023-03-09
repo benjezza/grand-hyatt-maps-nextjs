@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { markers } from '../pages/api/markers';
+import { EateriesMarkers } from '../pages/api/EateriesMarkers';
 
 interface MapProps {
   className?: string;
@@ -41,7 +41,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
     // }
 
     if (map) {
-      markers.forEach((markerProps) => {
+      EateriesMarkers.forEach((markerProps) => {
         const markerElement = document.createElement('div');
         markerElement.innerHTML = `
         <div style='position: relative'>
@@ -106,7 +106,6 @@ const Map: React.FC<MapProps> = ({ className }) => {
             marker.getElement().style.opacity = `${(zoomLevel - 10) / 6}`; // adjust the formula to change the rate of opacity change
           }
         });
-        
       });
     }
   }, [map]);
@@ -133,7 +132,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
           className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
-            const markerProps = markers[index];
+            const markerProps = EateriesMarkers[index];
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
@@ -142,7 +141,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
             });
           }}
         >
-          {markers.map((markerProps, index) => (
+          {EateriesMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
             </option>

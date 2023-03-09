@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Map from '../components/Map';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -12,10 +12,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="h-screen">
-        <div className="z-10 absolute top-0 left-0 w-screen bg-[#bd2238] p-4 text-white flex justify-center items-center">
+        <div className="w-screen bg-[#bd2238] p-4 text-white flex justify-center items-center">
           <Image src="/images/logo.svg" width={300} height={100} alt={''} />
         </div>
-        <Map className="h-full" />
+        <div className="w-screen h-full p-20 bg-slate-50">
+          <Link href="/eateries-grey">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-slate-500 border-8 rounded-md shadow-md border-slate-400 hover:border-white text-slate-500 hover:text-white hover:shadow-lg flex justify-center items-center px-6 py-4">
+              <h1 className="uppercase text-2xl">Eateries</h1>
+            </div>
+          </Link>
+          <Link href="/drinkeries-blue">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-blue-500 border-8 rounded-md border-blue-400 hover:border-white text-blue-500 hover:text-white hover:shadow-lg flex justify-center items-center px-6 py-4">
+              <h1 className="uppercase text-2xl">Drinkeries</h1>
+            </div>
+          </Link>
+          <Link href="/entertainment-tan">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-stone-400 border-8 rounded-md border-stone-400 hover:border-white text-stone-400 hover:text-white hover:shadow-lg flex justify-center items-center px-6 py-4">
+              <h1 className="uppercase text-2xl">Entertainment</h1>
+            </div>
+          </Link>
+        </div>
       </div>
     </>
   );

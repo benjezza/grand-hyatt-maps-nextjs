@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import Map from '../components/Eateries';
+import Map from '../components/Drinkeries';
 
 export default function Home() {
   return (
