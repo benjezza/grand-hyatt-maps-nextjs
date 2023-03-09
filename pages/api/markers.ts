@@ -1,5 +1,5 @@
 const homeColor = '#bd2238';
-const markerColor = '#b000b5';
+const markerColor = '#007299';
 export interface MarkerProps {
   index: number;
   lng: number;
@@ -27,7 +27,7 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 0,
-    title: 'Gimlet at Canvendish House ',
+    title: 'Gimlet',
     lng: 144.9693301007055,
     lat: -37.81589182936585,
     description:
@@ -51,7 +51,7 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 2,
-    title: "Cecconi's Flinders Lane restaurant & bar",
+    title: "Cecconi's",
     lng: 144.97253397768142,
     lat: -37.815042122892045,
     description:
@@ -75,7 +75,7 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 4,
-    title: 'SupernormaL',
+    title: 'Supernormal',
     lng: 144.96840844535689,
     lat: -37.815932660223815,
     description:
@@ -111,7 +111,7 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 7,
-    title: 'Lucy Liu Kitchen and Bar',
+    title: 'Lucy Liu',
     lng: 144.96995582685383,
     lat: -37.81598808228898, 
     description:
@@ -123,12 +123,12 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 8,
-    title: 'Coda Melbourne',
+    title: 'Coda',
     lng: 144.96988903137049,
     lat: -37.81576017243801,
     description:
       'Coda Melbourne is a modern Vietnamese restaurant. The menu features innovative, contemporary Vietnamese dishes with a focus on fresh, seasonal ingredients. The restaurant has a chic, stylish atmosphere with a long bar, a bustling open kitchen, and a courtyard for outdoor dining.',
-    image: './images/codaMelbourne.jpg',
+    image: './images/coda.jpg',
     link: 'https://www.codarestaurant.com.au/',
     nav: 'https://goo.gl/maps/Bfkq17aaJCTLyxNJA',
     color: markerColor,
@@ -159,9 +159,9 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 11,
-    title: 'Botswana Butchery Melbourne',
-    lng: 144.97230628188774,
-    lat: -37.814763188463985, 
+    title: 'Botswana Butchery',
+    lng: 144.97230628188842,
+    lat: -37.8147642079105, 
     description:
       'Botswana Butchery Melbourne is a fine dining restaurant. The menu features a selection of premium meats, seafood, and game dishes, as well as an extensive wine list. The restaurant has a sophisticated, elegant atmosphere with plush furnishings, crystal chandeliers, and a stunning city view.',
     image: './images/botswanaButchery.jpg',
@@ -171,7 +171,7 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 12,
-    title: 'The French Brasserie',
+    title: 'French Brasserie',
     lng: 144.97158027326796,
     lat: -37.81545447410336,
     description:
@@ -183,7 +183,7 @@ export const markers: MarkerProps[] = [
   },
   {
     index: 13,
-    title: 'Flower Drum Restaurant Melbourne',
+    title: 'Flower Drum',
     lng: 144.96924488539622,
     lat: -37.811871450217446,
     description:

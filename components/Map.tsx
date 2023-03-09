@@ -61,8 +61,8 @@ const Map: React.FC<MapProps> = ({ className }) => {
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button style='padding: 8px 16px; background: #bada55; color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button style='padding: 8px 16px; background: #bada55; color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+        <button style='padding: 8px 16px; background: #bd2238; color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button style='padding: 8px 16px; background: #bd2238; color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
 
@@ -79,30 +79,34 @@ const Map: React.FC<MapProps> = ({ className }) => {
           });
         });
 
-         // Add title label above the marker icon for high zoom levels
-  map.on('zoom', () => {
-    if (map.getZoom() > 16) {
-      marker.getElement().innerHTML = `
-        <div style='position: relative'>
-          <h3 style='font-size: 1em; margin: -20px 0 0 -20px;'>${markerProps.title}</h3>
-          <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
-            </svg>
-          </div>
-        `;
-      } else {
-        marker.getElement().innerHTML = `
-          <div style='position: relative'>
-            <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
-            </svg>
-          </div>
-        `;
-      }
-    });
-  
+        // Add title label above the marker icon for high zoom levels and reduce opacity for low zoom levels
+
+        map.on('zoom', () => {
+          const zoomLevel = map.getZoom();
+          if (zoomLevel > 16) {
+            marker.getElement().innerHTML = `
+              <div style='position: relative'>
+                <h3 style='font-size: 1em; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;'>${markerProps.title}</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
+                </svg>
+              </div>
+            `;
+            marker.getElement().style.opacity = '1.0';
+          } else {
+            marker.getElement().innerHTML = `
+              <div style='position: relative'>
+                <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
+                  <path d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
+                </svg>
+              </div>
+            `;
+            marker.getElement().style.opacity = `${(zoomLevel - 10) / 6}`; // adjust the formula to change the rate of opacity change
+          }
+        });
+        
       });
     }
   }, [map]);
@@ -119,7 +123,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
   return (
     <div className={className} ref={mapContainerRef}>
       {/* Uncomment to show zoom level */}
-      {/* <div className="mt-12 absolute top-28 p-12 bg-orange-400 text-3xl z-50">{zoomLevel.toFixed(1)}</div> */} 
+      {/* <div className="mt-12 absolute top-28 p-12 bg-orange-400 text-3xl z-50">{zoomLevel.toFixed(1)}</div> */}
       <div
         className="z-10 fixed bottom-0 left-0 w-full bg-white p-4 flex flex-wrap flex-col justify-between"
         onClick={handleLegendClick} // add event listener here
