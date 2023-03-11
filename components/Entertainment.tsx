@@ -28,9 +28,36 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
       setMap(newMap);
 
-      // Add zoom controls
-      const nav = new mapboxgl.NavigationControl();
-      newMap.addControl(nav, 'top-right');
+      newMap.on('load', () => {
+        newMap.addLayer({
+          id: 'buildings',
+          type: 'fill-extrusion',
+          source: 'composite',
+          'source-layer': 'building',
+          paint: {
+            'fill-extrusion-color': '#fff',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height'],
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height'],
+            ],
+            'fill-extrusion-opacity': 0.6,
+          },
+        });
+      });
     }
 
     // Uncomment to show zoom level
@@ -129,18 +156,21 @@ const Map: React.FC<MapProps> = ({ className }) => {
       >
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
-          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
+          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left appearance-none"
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
             const markerProps = EntertainmentMarkers[index];
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
-              zoom: 18,
+              zoom: 16.5,
               duration: 3000,
             });
           }}
         >
+          <option value="" disabled>
+            Select a Destination
+          </option>
           {EntertainmentMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
