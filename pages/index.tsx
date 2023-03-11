@@ -15,19 +15,19 @@ export default function Home() {
         <div className="w-screen bg-[#bd2238] p-4 text-white flex justify-center items-center">
           <Image src="/images/logo.svg" width={300} height={100} alt={''} />
         </div>
-        <div className="w-screen h-full p-20 bg-slate-50">
+        <div className="w-screen h-full p-20 bg-slate-100">
           <Link href="/eateries-grey">
-            <div className="w-full h-auto mb-12 bg-white hover:bg-slate-500 border-8 rounded-md shadow-md border-slate-400 hover:border-white text-slate-500 hover:text-white hover:shadow-lg flex justify-center items-center px-6 py-4">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-[#bd2238] text-[#bd2238] hover:text-white border-2 border-[#bd2238] hover:border-white flex justify-center items-center px-6 py-4 rounded-md">
               <h1 className="uppercase text-2xl">Eateries</h1>
             </div>
           </Link>
           <Link href="/drinkeries-blue">
-            <div className="w-full h-auto mb-12 bg-white hover:bg-blue-500 border-8 rounded-md border-blue-400 hover:border-white text-blue-500 hover:text-white hover:shadow-lg flex justify-center items-center px-6 py-4">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-[#bd2238] text-[#bd2238] hover:text-white border-2 border-[#bd2238] hover:border-white flex justify-center items-center px-6 py-4 rounded-md">
               <h1 className="uppercase text-2xl">Drinkeries</h1>
             </div>
           </Link>
           <Link href="/entertainment-tan">
-            <div className="w-full h-auto mb-12 bg-white hover:bg-stone-400 border-8 rounded-md border-stone-400 hover:border-white text-stone-400 hover:text-white hover:shadow-lg flex justify-center items-center px-6 py-4">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-[#bd2238] text-[#bd2238] hover:text-white border-2 border-[#bd2238] hover:border-white flex justify-center items-center px-6 py-4 rounded-md">
               <h1 className="uppercase text-2xl">Entertainment</h1>
             </div>
           </Link>

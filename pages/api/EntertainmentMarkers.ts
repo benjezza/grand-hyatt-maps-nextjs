@@ -3,6 +3,7 @@ export interface MarkerProps {
   index: number;
   lng: number;
   lat: number;
+  height?: number;
   title: string;
   description: string;
   image: string;
@@ -17,6 +18,7 @@ export const EntertainmentMarkers: MarkerProps[] = [
     title: 'MCG',
     lng: 144.9837,
     lat: -37.8201,
+    height: 100,
     description: 'Sports stadium in Yarra Park, Melbourne',
     image: './images/mcg.jpg',
     link: 'https://www.mcg.org.au/',

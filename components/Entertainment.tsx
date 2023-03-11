@@ -168,7 +168,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
             });
           }}
         >
-          <option value="" disabled>
+          <option value="" disabled selected>
             Select a Destination
           </option>
           {EntertainmentMarkers.map((markerProps, index) => (
