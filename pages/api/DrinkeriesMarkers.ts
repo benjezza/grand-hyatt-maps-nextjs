@@ -16,7 +16,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 0,
     title: 'Eau De Vie',
     lng: 144.97157559684894,
-    lat: -37.815798014824985, 
+    lat: -37.815798014824985,
     description:
       'A stylish cocktail bar with an extensive whiskey collection and a hidden entrance',
     image: './images/drinkeries/EauDeVieMelbourne.jpg',
@@ -28,7 +28,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 1,
     title: 'Trinket Bar',
     lng: 144.97135715522234,
-    lat: -37.81525708857579, 
+    lat: -37.81525708857579,
     description:
       'A cozy bar with a vintage decor, serving creative cocktails and small plates',
     image: './images/drinkeries/TrinketBarMelbourne.jpg',
@@ -40,7 +40,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 2,
     title: 'Garden State Hotel',
     lng: 144.9710690708324,
-    lat: -37.815364999077204, 
+    lat: -37.815364999077204,
     description:
       'A sprawling pub with multiple bars and outdoor areas, serving pub classics and craft beers',
     image: './images/drinkeries/GardenStateHotel.jpg',
@@ -52,7 +52,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 3,
     title: 'Duke of Wellington',
     lng: 144.97007409248974,
-    lat: -37.816488156984384, 
+    lat: -37.816488156984384,
     description:
       'A classic pub with a warm atmosphere and a menu of pub fare and local beers',
     image: './images/drinkeries/DukeofWellington.jpg',
@@ -64,7 +64,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 4,
     title: "Nick & Nora's",
     lng: 144.97049910420426,
-    lat: -37.81347282562266, 
+    lat: -37.81347282562266,
     description:
       'A stylish cocktail bar inspired by the glamour of the 1920s, serving a range of classic and contemporary drinks',
     image: './images/drinkeries/NickAndNoras.jpg',
@@ -76,7 +76,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 5,
     title: 'Siglo',
     lng: 144.97260643766276,
-    lat: -37.810876440789364, 
+    lat: -37.810876440789364,
     description:
       'An elegant rooftop bar with panoramic views of the city, serving cocktails and wine',
     image: './images/drinkeries/Siglo.jpg',
@@ -88,7 +88,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 6,
     title: 'Gin Palace',
     lng: 144.96748863601226,
-    lat: -37.81384613548868, 
+    lat: -37.81384613548868,
     description:
       'A sophisticated bar specializing in gin, with a long list of classic and creative gin-based cocktails',
     image: './images/drinkeries/GinPalace.jpg',
@@ -100,7 +100,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 7,
     title: 'Bar Margaux',
     lng: 144.9691460286361,
-    lat: -37.81051958439722, 
+    lat: -37.81051958439722,
     description:
       'A French-style brasserie and bar, with a focus on classic cocktails and natural wines',
     image: './images/drinkeries/BarMargaux.jpg',
@@ -112,7 +112,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 8,
     title: 'Lui Bar',
     lng: 144.9576815245773,
-    lat: -37.8189101624136, 
+    lat: -37.8189101624136,
     description:
       'A sophisticated bar on the 55th floor of the Rialto building, with panoramic views and a range of cocktails and wine',
     image: './images/drinkeries/LuiBar.jpg',
@@ -124,7 +124,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 9,
     title: 'Riverland bar',
     lng: 144.96875061326926,
-    lat: -37.81872853165454, 
+    lat: -37.81872853165454,
     description:
       'A lively bar and beer garden on the Yarra River, with a range of craft beers, cocktails, and pub fare',
     image: './images/drinkeries/RiverlandBar.jpg',
@@ -136,7 +136,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 10,
     title: 'Arbory',
     lng: 144.9662071437812,
-    lat: -37.81904387469866, 
+    lat: -37.81904387469866,
     description:
       'A spacious bar and restaurant overlooking the Yarra River, with an extensive drinks list and a menu of modern Australian cuisine',
     image: './images/drinkeries/Arbory.jpg',
@@ -148,7 +148,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 11,
     title: 'Madam Brussels',
     lng: 144.97151390747578,
-    lat: -37.81203954800826, 
+    lat: -37.81203954800826,
     description:
       'A quirky rooftop bar inspired by 1950s garden parties, with a range of cocktails and a playful food menu',
     image: './images/drinkeries/MadamBrussels.jpg',
@@ -160,7 +160,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 12,
     title: 'Ms Collins',
     lng: 144.96060235201972,
-    lat: -37.81746562880844, 
+    lat: -37.81746562880844,
     description:
       'A glamorous venue with multiple bars and dining spaces, offering a range of cocktails, wines, and Asian-inspired cuisine',
     image: './images/drinkeries/MsCollins.jpg',
@@ -172,7 +172,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 13,
     title: 'Cookie',
     lng: 144.96515981341255,
-    lat: -37.81201016328581, 
+    lat: -37.81201016328581,
     description:
       'A popular bar and restaurant in a historic building, with a long list of beers, cocktails, and Thai-inspired food',
     image: './images/drinkeries/Cookie.jpg',
@@ -184,7 +184,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 14,
     title: 'Goldilocks Bar',
     lng: 144.96510810140396,
-    lat: -37.81182265680808, 
+    lat: -37.81182265680808,
     description:
       'A rooftop bar with panoramic views of the city, offering a range of cocktails and pub fare',
     image: './images/drinkeries/GoldilocksBar.jpg',
@@ -196,7 +196,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 15,
     title: '28 SkyBar',
     lng: 144.95762006746597,
-    lat: -37.825775013524904, 
+    lat: -37.825775013524904,
     description:
       'A rooftop bar on the 28th floor of the Crown Metropol hotel, with panoramic views and a range of cocktails and small plates',
     image: './images/drinkeries/28SkyBarMelbourne.jpg',
@@ -208,7 +208,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 16,
     title: 'State of Grace',
     lng: 144.95698146382549,
-    lat: -37.81973415291653, 
+    lat: -37.81973415291653,
     description:
       'A multi-level bar and restaurant with a Victorian decor, serving a range of cocktails, wines, and modern Australian cuisine',
     image: './images/drinkeries/StateofGrace.jpg',
@@ -220,7 +220,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 17,
     title: 'Crafty Squire',
     lng: 144.96829265094095,
-    lat: -37.81376295969466, 
+    lat: -37.81376295969466,
     description:
       'A traditional English-style pub with a range of craft beers and classic pub fare',
     image: './images/drinkeries/CraftySquire.jpg',
@@ -244,7 +244,7 @@ export const DrinkeriesMarkers: MarkerProps[] = [
     index: 19,
     title: 'Ponyfish Island',
     lng: 144.96497259469226,
-    lat: -37.8198449177806, 
+    lat: -37.8198449177806,
     description:
       'A bar and grill on a pontoon under the Southbank pedestrian bridge, with a range of drinks and pub fare',
     image: './images/drinkeries/PonyfishIsland.jpg',

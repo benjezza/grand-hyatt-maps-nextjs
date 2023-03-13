@@ -163,7 +163,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
-              zoom: 16.5,
+              zoom: 16,
               duration: 3000,
             });
           }}
