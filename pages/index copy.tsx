@@ -16,6 +16,9 @@ export default function Home() {
           <Image src="/images/logo.svg" width={300} height={100} alt={''} />
         </div>
         <Map className="h-full" />
+        <div className="hidden">
+          This is a hidden div to update the repository
+        </div>
       </div>
     </>
   );
