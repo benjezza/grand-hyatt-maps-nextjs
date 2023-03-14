@@ -6,6 +6,8 @@ interface MapProps {
   className?: string;
 }
 
+const sortedMarkers = EateriesMarkers.sort((a, b) => (a.order ?? 100) - (b.order ?? 100));
+
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
@@ -24,6 +26,10 @@ const Map: React.FC<MapProps> = ({ className }) => {
         center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
+        maxBounds: [
+          [144.94379218514516, -37.895157602944195], // Southwest coordinates
+          [144.99056785186198, -37.79962538431237], // Northeast coordinates
+        ],
       });
 
       setMap(newMap);
@@ -61,9 +67,9 @@ const Map: React.FC<MapProps> = ({ className }) => {
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button style='padding: 8px 16px; background: #bd2238; color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button style='padding: 8px 16px; background: #bd2238; color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
-      </div>
+        <button class='popUpBtn brandRed' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button class='popUpBtn brandRed' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+        </div>
     `);
 
         marker.setPopup(newPopup);
@@ -141,7 +147,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
             });
           }}
         >
-          {EateriesMarkers.map((markerProps, index) => (
+          {sortedMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
             </option>

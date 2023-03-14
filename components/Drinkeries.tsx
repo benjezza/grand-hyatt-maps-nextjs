@@ -24,6 +24,10 @@ const Map: React.FC<MapProps> = ({ className }) => {
         center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
+        maxBounds: [
+          [144.94905031796972, -37.83241393120773], // Southwest coordinates
+          [144.98075921249801, -37.79870977361249], // Northeast coordinates
+        ],
       });
 
       setMap(newMap);
@@ -57,12 +61,12 @@ const Map: React.FC<MapProps> = ({ className }) => {
           .addTo(map);
 
         const newPopup = new mapboxgl.Popup({ offset: [0, -30] }).setHTML(`
-      <div style=' z-index: 99999; width:100%; height: auto; padding: 20px;'>
+        <div class='popUpWrapper'>
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button style='padding: 8px 16px; background: #007299; color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button style='padding: 8px 16px; background: #007299; color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+        <button class='popUpBtn brandBlue'  style='color: #fff; width: 100%; display: block;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button class='popUpBtn brandBlue'  style='color: #fff; width: 100%; display: block;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
 
@@ -141,6 +145,9 @@ const Map: React.FC<MapProps> = ({ className }) => {
             });
           }}
         >
+          <option value="" disabled selected>
+            Select a Destination
+          </option>
           {DrinkeriesMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}

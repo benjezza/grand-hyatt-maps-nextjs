@@ -6,6 +6,10 @@ interface MapProps {
   className?: string;
 }
 
+const sortedMarkers = EntertainmentMarkers.sort(
+  (a, b) => (a.order ?? 100) - (b.order ?? 100)
+);
+
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
@@ -24,6 +28,10 @@ const Map: React.FC<MapProps> = ({ className }) => {
         center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
+        maxBounds: [
+          [144.93329953553078, -37.87341485399339], // Southwest coordinates
+          [144.99114802731026, -37.79470193430126], // Northeast coordinates
+        ],
       });
 
       setMap(newMap);
@@ -84,12 +92,12 @@ const Map: React.FC<MapProps> = ({ className }) => {
           .addTo(map);
 
         const newPopup = new mapboxgl.Popup({ offset: [0, -30] }).setHTML(`
-      <div style=' z-index: 99999; width:100%; height: auto; padding: 20px;'>
+      <div class='popUpWrapper'>
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button style='padding: 8px 16px; background: #007299; color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button style='padding: 8px 16px; background: #007299; color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
 
@@ -171,7 +179,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
           <option value="" disabled selected>
             Select a Destination
           </option>
-          {EntertainmentMarkers.map((markerProps, index) => (
+          {sortedMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
             </option>
