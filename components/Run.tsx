@@ -6,96 +6,32 @@ interface MapProps {
   className?: string;
 }
 
-interface RunMarker {
-  lng: number;
-  image: unknown;
-  title: string;
-  description: string;
-  link: string;
-  nav: string;
-  lat: number;
-  color: unknown;
-  type: string;
-  geometry: {
-    type: string;
-    coordinates: [number, number];
-  };
-  properties: {
-    name: string;
-    description: string;
-    length: number;
-    color: string;
-    image: string;
-    link: string;
-    nav: string;
-  };
-}
-
-
-
+const sortedMarkers = RunMarkers.sort(
+  (a, b) => (a.order ?? 100) - (b.order ?? 100)
+);
 
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
+  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState<number | null>(
+    null
+  );
+
+  //Uncomment to show zoom level (there are three places to uncomment)
+  //const [zoomLevel, setZoomLevel] = useState<number>(14);
+
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const [runMarkersData, setRunMarkersData] = useState<RunMarker[]>([]); // Add this line
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
 
-    const fetchTilesetData = async () => {
-      const tilesetId = 'benjezza.clf97twy216p82dqp9r62vf3w-29a60';
-      const mapboxAccessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
-      const url = `https://api.mapbox.com/v4/${tilesetId}/tilequery/-37.814258,144.963162.json?radius=10000&limit=50&access_token=${mapboxAccessToken}`;
-  
-      const response = await fetch(url);
-      const data = await response.json();
-      const features = data.features as RunMarker[];
-  
-      // Transform the features into runMarkersData format
-      const fetchedRunMarkers = features.map<RunMarker>((feature) => ({
-        title: feature.properties.name,
-        description: feature.properties.description,
-        length: feature.properties.length,
-        color: feature.properties.color,
-        lng: feature.geometry.coordinates[0],
-        lat: feature.geometry.coordinates[1],
-        image: feature.properties.image,
-        link: feature.properties.link,
-        nav: feature.properties.nav,
-        type: feature.type, // Add this line
-        geometry: {
-          type: feature.geometry.type, // Add this line
-          coordinates: feature.geometry.coordinates, // Add this line
-        },
-        properties: {
-          name: feature.properties.name,
-          description: feature.properties.description,
-          length: feature.properties.length,
-          color: feature.properties.color,
-          image: feature.properties.image,
-          link: feature.properties.link,
-          nav: feature.properties.nav,
-        },
-      }));
-      
-      
-
-      // Merge the existing RunMarkers with the fetched data
-    setRunMarkersData([...RunMarkers, ...fetchedRunMarkers]);
-  };
-
     if (mapContainerRef.current && !map) {
       const newMap = new mapboxgl.Map({
         container: mapContainerRef.current,
-        style: 'mapbox://styles/benjezza/clexs2iqw002e01suy37fucoi',
+        style: 'mapbox://styles/benjezza/clf97qk06000b01p7wyf9szeu',
         center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
-        maxBounds: [
-          [144.93329953553078, -37.87341485399339], // Southwest coordinates
-          [144.99114802731026, -37.79470193430126], // Northeast coordinates
-        ],
       });
 
       setMap(newMap);
@@ -140,7 +76,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
     // }
 
     if (map) {
-      runMarkersData.forEach((markerProps) => {
+      RunMarkers.forEach((markerProps) => {
         const markerElement = document.createElement('div');
         markerElement.innerHTML = `
         <div style='position: relative'>
@@ -160,8 +96,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+                <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
 
@@ -169,6 +104,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
         // Add click handler to marker to update the popup state and center/fly to the marker
         marker.getElement().addEventListener('click', () => {
+          setSelectedMarkerIndex(RunMarkers.indexOf(markerProps));
           setPopup(newPopup);
           map.flyTo({
             center: [markerProps.lng, markerProps.lat],
@@ -187,9 +123,10 @@ const Map: React.FC<MapProps> = ({ className }) => {
               <div style='position: relative'>
                 <h3 style='font-size: 1em; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;'>${markerProps.title}</h3>
                 <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
-                  <path d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
-                </svg>
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" stroke="#fff" stroke-width="1" />
+</svg>
+
               </div>
             `;
             marker.getElement().style.opacity = '1.0';
@@ -197,9 +134,10 @@ const Map: React.FC<MapProps> = ({ className }) => {
             marker.getElement().innerHTML = `
               <div style='position: relative'>
                 <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 0 24 24" width="60px">
-                  <path d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" />
-                </svg>
+  <path d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="${markerProps.color}" stroke="#fff" stroke-width="1" />
+</svg>
+
               </div>
             `;
             marker.getElement().style.opacity = `${(zoomLevel - 10) / 6}`; // adjust the formula to change the rate of opacity change
@@ -207,9 +145,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
         });
       });
     }
-
-    fetchTilesetData();
-  }, [map, runMarkersData]);
+  }, [map]);
 
   const handleLegendClick = () => {
     // Check if a popup is currently open
@@ -231,13 +167,16 @@ const Map: React.FC<MapProps> = ({ className }) => {
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
           className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left appearance-none"
+          value={selectedMarkerIndex ?? ''}
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
             const markerProps = RunMarkers[index];
+            setSelectedMarkerIndex(index);
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
-              offset: [0, 150],
-              zoom: 16,
+              offset: [markerProps.offsetX, markerProps.offsetY],
+              zoom: markerProps.zoom,
+              bearing: markerProps.bearing,
               duration: 3000,
             });
           }}
@@ -245,11 +184,11 @@ const Map: React.FC<MapProps> = ({ className }) => {
           <option value="" disabled selected>
             Select a Destination
           </option>
-          {runMarkersData.map((markerProps, index) => (
-    <option key={index} value={index} style={{ padding: '20px' }}>
-      {markerProps.title}
-    </option>
-  ))}
+          {sortedMarkers.map((markerProps, index) => (
+            <option key={index} value={index} style={{ padding: '20px' }}>
+              {markerProps.title}
+            </option>
+          ))}
         </select>
       </div>
     </div>

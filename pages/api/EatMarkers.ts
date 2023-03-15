@@ -11,6 +11,8 @@ export interface MarkerProps {
   link: string;
   nav?: string;
   color?: string;
+  zoom?: number;
+  bearing?: number;
 }
 
 export const EatMarkers: MarkerProps[] = [
@@ -227,7 +229,7 @@ export const EatMarkers: MarkerProps[] = [
     order: 17,
     title: 'Attica',
     lng: 144.99732299013536,
-    lat: -37.8769461508216, 
+    lat: -37.8769461508216,
     description:
       'Attica is a world-renowned fine dining restaurant. The menu features innovative, modern Australian cuisine with an emphasis on native ingredients and sustainable practices. The restaurant has a warm, welcoming atmosphere with an open kitchen, a cozy fireplace, and a lush garden.',
     image: './images/eateries/attica.webp',

@@ -1,5 +1,6 @@
 const homeColor = '#bd2238';
-const markerColor = '#1f2a44';
+const markerColor = '#2b83e9';
+const markerColorTwo = 'orange';
 export interface MarkerProps {
   index: number;
   lng: number;
@@ -7,10 +8,14 @@ export interface MarkerProps {
   title: string;
   description: string;
   image: string;
-  link: string;
+  link?: string;
   nav?: string;
   color?: string;
   order?: number;
+  bearing?: number;
+  zoom?: number;
+  offsetX?: number;
+  offsetY?: number;
 }
 
 export const RunMarkers: MarkerProps[] = [
@@ -20,23 +25,127 @@ export const RunMarkers: MarkerProps[] = [
     title: 'Grand Hyatt Melbourne',
     lng: 144.96968999086687,
     lat: -37.814759644486415,
+    bearing: 0,
     description:
       'Located in the centre of Melbournes high fashion and fine dining scene on prestigious Collins Street, Grand Hyatt Melbourne is the citys centre of luxury.',
-    image: './images/entertainment/grandHyatt.webp',
+    image: './images/run/grandHyatt.webp',
     link: 'https://www.hyatt.com/en-US/hotel/australia/grand-hyatt-melbourne/melbo?src=corp_lclb_gmb_seo_melbo',
     nav: 'https://goo.gl/maps/L7HLoqAfGv6PXcQn9',
     color: homeColor,
+    zoom: 14,
+    offsetX: 0,
+    offsetY: 150,
   },
   {
     index: 1,
     order: 2,
-    title: 'MCG',
-    lng: 144.9834020407374,
-    lat: -37.81995531191525,
-    description: 'The Melbourne Cricket Ground, also known locally as "The G", is an Australian sports stadium located in Yarra Park, Melbourne, Victoria.',
-    image: './images/entertainment/mcg.webp',
-    link: 'https://www.mcg.org.au/',
-    nav: 'https://goo.gl/maps/hk4P6ntHJv2X5gfm9',
+    title: 'Princes Park',
+    lng: 144.96108537825174,
+    lat: -37.791514116048866,
+    bearing: 0,
+    description:
+      'A picturesque park that features a beautiful lake, plenty of green space, and various sports facilities. Take advantage of the wide paths and the flat terrain to go for a brisk jog or a leisurely stroll',
+    image: './images/run/princesPark.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
     color: markerColor,
+    zoom: 14,
+    offsetX: 0,
+    offsetY: 150,
+  },
+  {
+    index: 2,
+    order: 3,
+    title: 'The Tan',
+    lng: 144.97449446019934,
+    lat: -37.8300324702668,
+    bearing: 40,
+    description:
+      "Earn serious Melbourne cred as you join local runners on this loop around the Royal Melbourne Botanic Gardens. Named for the Gardens, the Tan is one of Melbourne's most popular walking and running tracks, with plenty of shade, greenery, views of the Yarra River, and a challenging incline.",
+    image: './images/run/theTan.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
+    color: markerColor,
+    zoom: 13.5,
+    offsetX: 0,
+    offsetY: 150,
+  },
+  {
+    index: 3,
+    order: 4,
+    title: 'Yarra River Run - Long',
+    lng: 144.9590882592546,
+    lat: -37.822206531135855,
+    bearing: 40,
+    description:
+      "The route takes you past some of Melbourne's most iconic landmarks, including the Crown Casino, Melbourne Exhibition Centre, and the Sea Life Melbourne Aquarium. The views along the river are stunning, with the sparkling water and lush greenery providing a scenic backdrop to your run.",
+    image: './images/run/yarraLong.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
+    color: markerColor,
+    zoom: 13.5,
+    offsetX: 60,
+    offsetY: 150,
+  },
+  {
+    index: 4,
+    order: 5,
+    title: 'Yarra River Run - Short',
+    lng: 144.97410912541417,
+    lat: -37.82044022362176,
+    bearing: -40,
+    description:
+      "Starting at Federation Square, you'll make your way along the picturesque riverbank, taking in the stunning views and fresh air. As you cross the Swan Street Bridge, you'll see the Melbourne Cricket Ground (MCG) and the towering Rod Laver Arena, home to the Australian Open tennis tournament.",
+    image: './images/run/yarraShort.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
+    color: markerColorTwo,
+    zoom: 15,
+    offsetX: 50,
+    offsetY: 100,
+  },
+  {
+    index: 4,
+    order: 5,
+    title: 'Treasury Gardens',
+    lng: 144.9791522723083,
+    lat: -37.81549532451862,
+    bearing: 0,
+    description:
+      "Whether you're looking for a peaceful place to run or simply want to explore Melbourne's rich history and culture, a run around the Treasury Gardens is sure to be a memorable experience.",
+    image: './images/run/treasury.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
+    color: markerColor,
+    zoom: 15,
+    offsetX: 0,
+    offsetY: 150,
+  },
+  {
+    index: 5,
+    order: 6,
+    title: 'Melbourne Cricket Ground',
+    lng: 144.98133384283767,
+    lat: -37.818880325174284,
+    bearing: -60,
+    description:
+      "A run around the MCG is a great way to explore Melbourne's rich sporting heritage and take in the city's stunning sights and sounds.",
+    image: './images/run/mcg.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
+    color: markerColor,
+    zoom: 15,
+    offsetX: 90,
+    offsetY: 150,
+  },
+  {
+    index: 6,
+    order: 7,
+    title: 'Port Melbourne - St Kilda',
+    lng: 144.95822341802696,
+    lat: -37.85261933403467,
+    bearing: 100,
+    description:
+      "As you run, you'll pass by some of Melbourne's most popular beaches, including South Melbourne Beach and Middle Park Beach, each with its unique charm and character. The path is flat and well-maintained, making it perfect for both runners and walkers alike.",
+    image: './images/run/beach.webp',
+    nav: 'https://goo.gl/maps/MHxpjN4WG5qtmN35A',
+    color: markerColor,
+    zoom: 13,
+    offsetX: 0,
+    offsetY: 100,
   },
 ];

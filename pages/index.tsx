@@ -31,6 +31,11 @@ export default function Home() {
               <h1 className="uppercase text-2xl">Play</h1>
             </div>
           </Link>
+          <Link href="/run">
+            <div className="w-full h-auto mb-12 bg-white hover:bg-[#bd2238] text-[#bd2238] hover:text-white border-2 border-[#bd2238] hover:border-white flex justify-center items-center px-6 py-4 rounded-md">
+              <h1 className="uppercase text-2xl">Run</h1>
+            </div>
+          </Link>
         </div>
       </div>
     </>

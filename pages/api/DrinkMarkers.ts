@@ -10,6 +10,9 @@ export interface MarkerProps {
   link: string;
   nav?: string;
   color?: string;
+  order?: number;
+  zoom?: number;
+  bearing?: number;
 }
 
 export const DrinkMarkers: MarkerProps[] = [

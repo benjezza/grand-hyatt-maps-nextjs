@@ -6,11 +6,17 @@ interface MapProps {
   className?: string;
 }
 
-const sortedMarkers = EatMarkers.sort((a, b) => (a.order ?? 100) - (b.order ?? 100));
+const sortedMarkers = EatMarkers.sort(
+  (a, b) => (a.order ?? 100) - (b.order ?? 100)
+);
 
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
+  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState<number | null>(
+    null
+  );
+
   //Uncomment to show zoom level (there are three places to uncomment)
   //const [zoomLevel, setZoomLevel] = useState<number>(14);
 
@@ -103,6 +109,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
         // Add click handler to marker to update the popup state and center/fly to the marker
         marker.getElement().addEventListener('click', () => {
+          setSelectedMarkerIndex(EatMarkers.indexOf(markerProps));
           setPopup(newPopup);
           map.flyTo({
             center: [markerProps.lng, markerProps.lat],
@@ -162,14 +169,17 @@ const Map: React.FC<MapProps> = ({ className }) => {
       >
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
-          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
+          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left appearance-none"
+          value={selectedMarkerIndex ?? ''}
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
             const markerProps = EatMarkers[index];
+            setSelectedMarkerIndex(index);
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
-              zoom: 18,
+              zoom: markerProps.zoom,
+              bearing: markerProps.bearing,
               duration: 3000,
             });
           }}
