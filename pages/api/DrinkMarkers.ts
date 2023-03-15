@@ -1,5 +1,5 @@
 const homeColor = '#bd2238';
-const markerColor = '#007299';
+const markerColor = '#1f2a44';
 export interface MarkerProps {
   index: number;
   lng: number;
@@ -12,7 +12,7 @@ export interface MarkerProps {
   color?: string;
 }
 
-export const DrinkeriesMarkers: MarkerProps[] = [
+export const DrinkMarkers: MarkerProps[] = [
   {
     index: 0,
     title: 'Grand Hyatt Melbourne',

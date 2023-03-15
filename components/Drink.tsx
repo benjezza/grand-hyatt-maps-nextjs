@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { EntertainmentMarkers } from '../pages/api/EntertainmentMarkers';
+import { DrinkMarkers } from '../pages/api/DrinkMarkers';
 
 interface MapProps {
   className?: string;
 }
-
-const sortedMarkers = EntertainmentMarkers.sort(
-  (a, b) => (a.order ?? 100) - (b.order ?? 100)
-);
 
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
@@ -24,13 +20,13 @@ const Map: React.FC<MapProps> = ({ className }) => {
     if (mapContainerRef.current && !map) {
       const newMap = new mapboxgl.Map({
         container: mapContainerRef.current,
-        style: 'mapbox://styles/benjezza/clf145t2w000i01p99io9edap',
+        style: 'mapbox://styles/benjezza/clexs2iqw002e01suy37fucoi',
         center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
         maxBounds: [
-          [144.93329953553078, -37.87341485399339], // Southwest coordinates
-          [144.99114802731026, -37.79470193430126], // Northeast coordinates
+          [144.94905031796972, -37.83241393120773], // Southwest coordinates
+          [144.98075921249801, -37.79870977361249], // Northeast coordinates
         ],
       });
 
@@ -76,7 +72,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
     // }
 
     if (map) {
-      EntertainmentMarkers.forEach((markerProps) => {
+      DrinkMarkers.forEach((markerProps) => {
         const markerElement = document.createElement('div');
         markerElement.innerHTML = `
         <div style='position: relative'>
@@ -92,12 +88,12 @@ const Map: React.FC<MapProps> = ({ className }) => {
           .addTo(map);
 
         const newPopup = new mapboxgl.Popup({ offset: [0, -30] }).setHTML(`
-      <div class='popUpWrapper'>
+        <div class='popUpWrapper'>
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+        <button class='popUpBtn brandBlue'  style='color: #fff; width: 100%; display: block;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button class='popUpBtn brandBlue'  style='color: #fff; width: 100%; display: block;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
 
@@ -164,14 +160,14 @@ const Map: React.FC<MapProps> = ({ className }) => {
       >
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
-          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left appearance-none"
+          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
-            const markerProps = EntertainmentMarkers[index];
+            const markerProps = DrinkMarkers[index];
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
-              zoom: 16,
+              zoom: 18,
               duration: 3000,
             });
           }}
@@ -179,7 +175,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
           <option value="" disabled selected>
             Select a Destination
           </option>
-          {sortedMarkers.map((markerProps, index) => (
+          {DrinkMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
             </option>

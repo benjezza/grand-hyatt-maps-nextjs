@@ -30,10 +30,11 @@ a:visited {
   padding-top: 120px;
 }
 .mapboxgl-popup-content {
-  width: 70dvw;
+  width: 80dvw;
   margin-left: -10dvw;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 .mapboxgl-popup-close-button {
   width: 20px;
   height: 20px;
@@ -49,23 +50,14 @@ a:visited {
   z-index: 99998;
   width: 100%;
   height: auto;
-  padding: 10px;
+  padding: 6px;
 }
 .popUpBtn {
   padding: 8px 16px;
   width: 100%;
   display: block;
+  background: #bd2238;
 }
 .popUpBtn:not(:last-child) {
   margin-bottom: 8px;
-}
-
-.brandRed {
-  background: #bd2238;
-}
-.brandBlue {
-  background: #007299;
-}
-.brandTan {
-  background: #007299;
 }

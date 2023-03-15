@@ -1,40 +1,135 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { DrinkeriesMarkers } from '../pages/api/DrinkeriesMarkers';
+import { RunMarkers } from '../pages/api/RunMarkers';
 
 interface MapProps {
   className?: string;
 }
 
+interface RunMarker {
+  lng: number;
+  image: unknown;
+  title: string;
+  description: string;
+  link: string;
+  nav: string;
+  lat: number;
+  color: unknown;
+  type: string;
+  geometry: {
+    type: string;
+    coordinates: [number, number];
+  };
+  properties: {
+    name: string;
+    description: string;
+    length: number;
+    color: string;
+    image: string;
+    link: string;
+    nav: string;
+  };
+}
+
+
+
+
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
-  //Uncomment to show zoom level (there are three places to uncomment)
-  //const [zoomLevel, setZoomLevel] = useState<number>(14);
-
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const [runMarkersData, setRunMarkersData] = useState<RunMarker[]>([]); // Add this line
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
 
+    const fetchTilesetData = async () => {
+      const tilesetId = 'benjezza.clf97twy216p82dqp9r62vf3w-29a60';
+      const mapboxAccessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+      const url = `https://api.mapbox.com/v4/${tilesetId}/tilequery/-37.814258,144.963162.json?radius=10000&limit=50&access_token=${mapboxAccessToken}`;
+  
+      const response = await fetch(url);
+      const data = await response.json();
+      const features = data.features as RunMarker[];
+  
+      // Transform the features into runMarkersData format
+      const fetchedRunMarkers = features.map<RunMarker>((feature) => ({
+        title: feature.properties.name,
+        description: feature.properties.description,
+        length: feature.properties.length,
+        color: feature.properties.color,
+        lng: feature.geometry.coordinates[0],
+        lat: feature.geometry.coordinates[1],
+        image: feature.properties.image,
+        link: feature.properties.link,
+        nav: feature.properties.nav,
+        type: feature.type, // Add this line
+        geometry: {
+          type: feature.geometry.type, // Add this line
+          coordinates: feature.geometry.coordinates, // Add this line
+        },
+        properties: {
+          name: feature.properties.name,
+          description: feature.properties.description,
+          length: feature.properties.length,
+          color: feature.properties.color,
+          image: feature.properties.image,
+          link: feature.properties.link,
+          nav: feature.properties.nav,
+        },
+      }));
+      
+      
+
+      // Merge the existing RunMarkers with the fetched data
+    setRunMarkersData([...RunMarkers, ...fetchedRunMarkers]);
+  };
+
     if (mapContainerRef.current && !map) {
       const newMap = new mapboxgl.Map({
         container: mapContainerRef.current,
-        style: 'mapbox://styles/benjezza/clf0jbc3c000m01lfgl3hwupd',
+        style: 'mapbox://styles/benjezza/clexs2iqw002e01suy37fucoi',
         center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
         maxBounds: [
-          [144.94905031796972, -37.83241393120773], // Southwest coordinates
-          [144.98075921249801, -37.79870977361249], // Northeast coordinates
+          [144.93329953553078, -37.87341485399339], // Southwest coordinates
+          [144.99114802731026, -37.79470193430126], // Northeast coordinates
         ],
       });
 
       setMap(newMap);
 
-      // Add zoom controls
-      const nav = new mapboxgl.NavigationControl();
-      newMap.addControl(nav, 'top-right');
+      newMap.on('load', () => {
+        newMap.addLayer({
+          id: 'buildings',
+          type: 'fill-extrusion',
+          source: 'composite',
+          'source-layer': 'building',
+          paint: {
+            'fill-extrusion-color': '#fff',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height'],
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height'],
+            ],
+            'fill-extrusion-opacity': 0.6,
+          },
+        });
+      });
     }
 
     // Uncomment to show zoom level
@@ -45,7 +140,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
     // }
 
     if (map) {
-      DrinkeriesMarkers.forEach((markerProps) => {
+      runMarkersData.forEach((markerProps) => {
         const markerElement = document.createElement('div');
         markerElement.innerHTML = `
         <div style='position: relative'>
@@ -61,12 +156,12 @@ const Map: React.FC<MapProps> = ({ className }) => {
           .addTo(map);
 
         const newPopup = new mapboxgl.Popup({ offset: [0, -30] }).setHTML(`
-        <div class='popUpWrapper'>
+      <div class='popUpWrapper'>
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button class='popUpBtn brandBlue'  style='color: #fff; width: 100%; display: block;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button class='popUpBtn brandBlue'  style='color: #fff; width: 100%; display: block;' onclick="window.open('${markerProps.nav}')">Directions</button>
+        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
 
@@ -112,7 +207,9 @@ const Map: React.FC<MapProps> = ({ className }) => {
         });
       });
     }
-  }, [map]);
+
+    fetchTilesetData();
+  }, [map, runMarkersData]);
 
   const handleLegendClick = () => {
     // Check if a popup is currently open
@@ -133,14 +230,14 @@ const Map: React.FC<MapProps> = ({ className }) => {
       >
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
-          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
+          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left appearance-none"
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
-            const markerProps = DrinkeriesMarkers[index];
+            const markerProps = RunMarkers[index];
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
-              zoom: 18,
+              zoom: 16,
               duration: 3000,
             });
           }}
@@ -148,11 +245,11 @@ const Map: React.FC<MapProps> = ({ className }) => {
           <option value="" disabled selected>
             Select a Destination
           </option>
-          {DrinkeriesMarkers.map((markerProps, index) => (
-            <option key={index} value={index} style={{ padding: '20px' }}>
-              {markerProps.title}
-            </option>
-          ))}
+          {runMarkersData.map((markerProps, index) => (
+    <option key={index} value={index} style={{ padding: '20px' }}>
+      {markerProps.title}
+    </option>
+  ))}
         </select>
       </div>
     </div>

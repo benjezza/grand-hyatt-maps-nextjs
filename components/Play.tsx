@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { EateriesMarkers } from '../pages/api/EateriesMarkers';
+import { PlayMarkers } from '../pages/api/PlayMarkers';
 
 interface MapProps {
   className?: string;
 }
 
-const sortedMarkers = EateriesMarkers.sort((a, b) => (a.order ?? 100) - (b.order ?? 100));
+const sortedMarkers = PlayMarkers.sort(
+  (a, b) => (a.order ?? 100) - (b.order ?? 100)
+);
 
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
@@ -27,16 +29,43 @@ const Map: React.FC<MapProps> = ({ className }) => {
         pitch: 50,
         zoom: 14,
         maxBounds: [
-          [144.94379218514516, -37.895157602944195], // Southwest coordinates
-          [144.99056785186198, -37.79962538431237], // Northeast coordinates
+          [144.93329953553078, -37.87341485399339], // Southwest coordinates
+          [144.99114802731026, -37.79470193430126], // Northeast coordinates
         ],
       });
 
       setMap(newMap);
 
-      // Add zoom controls
-      const nav = new mapboxgl.NavigationControl();
-      newMap.addControl(nav, 'top-right');
+      newMap.on('load', () => {
+        newMap.addLayer({
+          id: 'buildings',
+          type: 'fill-extrusion',
+          source: 'composite',
+          'source-layer': 'building',
+          paint: {
+            'fill-extrusion-color': '#fff',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height'],
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height'],
+            ],
+            'fill-extrusion-opacity': 0.6,
+          },
+        });
+      });
     }
 
     // Uncomment to show zoom level
@@ -47,7 +76,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
     // }
 
     if (map) {
-      EateriesMarkers.forEach((markerProps) => {
+      PlayMarkers.forEach((markerProps) => {
         const markerElement = document.createElement('div');
         markerElement.innerHTML = `
         <div style='position: relative'>
@@ -63,13 +92,13 @@ const Map: React.FC<MapProps> = ({ className }) => {
           .addTo(map);
 
         const newPopup = new mapboxgl.Popup({ offset: [0, -30] }).setHTML(`
-      <div style=' z-index: 99999; width:100%; height: auto; padding: 20px;'>
+      <div class='popUpWrapper'>
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
         <p style='margin-bottom: 10px;'>${markerProps.description}</p>
-        <button class='popUpBtn brandRed' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
-        <button class='popUpBtn brandRed' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
-        </div>
+        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.link}')">Website</button>
+        <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
+      </div>
     `);
 
         marker.setPopup(newPopup);
@@ -135,18 +164,21 @@ const Map: React.FC<MapProps> = ({ className }) => {
       >
         <h3 className="font-bold text-lg">Select a Destination:</h3>
         <select
-          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left"
+          className="cursor-pointer p-4 mb-1 rounded bg-gray-100 font-bold text-xs border-2 origin-bottom-left appearance-none"
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
-            const markerProps = EateriesMarkers[index];
+            const markerProps = PlayMarkers[index];
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
               offset: [0, 150],
-              zoom: 18,
+              zoom: 16,
               duration: 3000,
             });
           }}
         >
+          <option value="" disabled selected>
+            Select a Destination
+          </option>
           {sortedMarkers.map((markerProps, index) => (
             <option key={index} value={index} style={{ padding: '20px' }}>
               {markerProps.title}
