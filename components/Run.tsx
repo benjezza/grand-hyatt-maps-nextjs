@@ -13,9 +13,7 @@ const sortedMarkers = RunMarkers.sort(
 const Map: React.FC<MapProps> = ({ className }) => {
   const [map, setMap] = useState<mapboxgl.Map>();
   const [popup, setPopup] = useState<mapboxgl.Popup | null>(null);
-  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState<number | null>(
-    null
-  );
+  const [selectedMarkerIndex, setSelectedMarkerIndex] = useState<number>(0);
 
   //Uncomment to show zoom level (there are three places to uncomment)
   //const [zoomLevel, setZoomLevel] = useState<number>(14);
@@ -95,7 +93,9 @@ const Map: React.FC<MapProps> = ({ className }) => {
       <div class='popUpWrapper'>
         <img src='${markerProps.image}' style="width: 100%; height: auto; margin-bottom: 12px;" />
         <h3 style='font-size: 2em; margin: 20px 0;'>${markerProps.title}</h3>
-        <p style='margin-bottom: 10px;'>${markerProps.description}</p>
+        <span style='font-size: 1.2em; display: inline;'>Distance approx:</span>
+        <p style='font-size: 1.5em; display: inline;'>${markerProps.length}</p>
+        <p style='margin: 10px 0;'>${markerProps.description}</p>
                 <button class='popUpBtn brandBlue' style='color: #fff;' onclick="window.open('${markerProps.nav}')">Directions</button>
       </div>
     `);
@@ -185,7 +185,11 @@ const Map: React.FC<MapProps> = ({ className }) => {
             Select a Destination
           </option>
           {sortedMarkers.map((markerProps, index) => (
-            <option key={index} value={index} style={{ padding: '20px' }}>
+            <option
+              key={markerProps.index}
+              value={index}
+              style={{ padding: '20px' }}
+            >
               {markerProps.title}
             </option>
           ))}
