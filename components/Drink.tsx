@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { DrinkMarkers } from '../pages/api/DrinkMarkers';
-import ReactGA from 'react-ga';
-ReactGA.initialize('G-4SB06EQ0EY');
 
 interface MapProps {
   className?: string;
@@ -111,11 +109,6 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
         // Add click handler to marker to update the popup state and center/fly to the marker
         marker.getElement().addEventListener('click', () => {
-          ReactGA.event({
-            category: 'Marker',
-            action: 'Click',
-            label: markerProps.title,
-          });
           setSelectedMarkerIndex(DrinkMarkers.indexOf(markerProps));
           setPopup(newPopup);
           map.flyTo({
