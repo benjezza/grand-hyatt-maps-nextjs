@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.webp" />
       </Head>
       <div className="h-screen">
-      <div className=" w-screen h-[85px] z-10 absolute top-0 left-0 bg-[#bd2238] p-4 text-white flex justify-center items-center">
+        <div className=" w-screen h-[85px] z-10 absolute top-0 left-0 bg-[#bd2238] p-4 text-white flex justify-center items-center">
           <Image src="/images/logo.svg" width={240} height={80} alt={''} />
         </div>
         <Map className="h-full" />
