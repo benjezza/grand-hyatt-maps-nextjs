@@ -28,7 +28,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
     // Initialize GTM
     const tagManagerArgs = {
-      gtmId: process.env.NEXT_PUBLIC_GTM_ID_DRINK ?? '',
+      gtmId: 'GTM-5CSTT7T',
     };
     TagManager.initialize(tagManagerArgs);
 
