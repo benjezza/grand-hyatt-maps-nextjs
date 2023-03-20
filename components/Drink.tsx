@@ -28,9 +28,11 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
     // Initialize GTM
     const tagManagerArgs = {
-      gtmId: 'NEXT_PUBLIC_GTM_ID_DRINK',
+      gtmId: process.env.NEXT_PUBLIC_GTM_ID_DRINK ?? '',
     };
     TagManager.initialize(tagManagerArgs);
+
+    console.log(tagManagerArgs.gtmId)
 
     // Track the page load event
     TagManager.dataLayer({
