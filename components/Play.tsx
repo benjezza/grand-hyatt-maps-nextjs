@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { PlayMarkers } from '../pages/api/PlayMarkers';
+import TagManager from 'react-gtm-module';
 
 interface MapProps {
   className?: string;
@@ -24,6 +25,19 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
+
+    // Initialize GTM
+    const tagManagerArgs = {
+      gtmId: 'GTM-TRRTH93',
+    };
+    TagManager.initialize(tagManagerArgs);
+
+    // Track the page load event
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'page_load',
+      },
+    });
 
     if (mapContainerRef.current && !map) {
       const newMap = new mapboxgl.Map({
@@ -181,6 +195,13 @@ const Map: React.FC<MapProps> = ({ className }) => {
               zoom: markerProps.zoom,
               bearing: markerProps.bearing,
               duration: 3000,
+            });
+            // Track the option selection event
+            TagManager.dataLayer({
+              dataLayer: {
+                event: 'option_select',
+                selected_option: markerProps.title,
+              },
             });
           }}
         >
