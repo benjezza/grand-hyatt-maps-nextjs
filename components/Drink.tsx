@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { DrinkMarkers } from '../pages/api/DrinkMarkers';
-import ReactGA from 'react-ga';
+import TagManager from 'react-gtm-module';
 
 interface MapProps {
   className?: string;
@@ -24,10 +24,20 @@ const Map: React.FC<MapProps> = ({ className }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    ReactGA.initialize('G-4SB06EQ0EY');
-    ReactGA.pageview(window.location.pathname + window.location.search);
-
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '';
+
+    // Initialize GTM
+    const tagManagerArgs = {
+      gtmId: 'NEXT_PUBLIC_GTM_ID_DRINK',
+    };
+    TagManager.initialize(tagManagerArgs);
+
+    // Track the page load event
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'page_load',
+      },
+    });
 
     if (mapContainerRef.current && !map) {
       const newMap = new mapboxgl.Map({
@@ -113,11 +123,6 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
         // Add click handler to marker to update the popup state and center/fly to the marker
         marker.getElement().addEventListener('click', () => {
-          ReactGA.event({
-            category: 'Marker',
-            action: `Clicked ${markerProps.title}`, // Use backticks instead of single quotes
-          });
-          console.log(`GA Event: Marker clicked - ${markerProps.title}`); // Use backticks for string interpolation
           setSelectedMarkerIndex(DrinkMarkers.indexOf(markerProps));
           setPopup(newPopup);
           map.flyTo({
@@ -127,7 +132,6 @@ const Map: React.FC<MapProps> = ({ className }) => {
             duration: 3000,
           });
         });
-        
 
         // Add title label above the marker icon for high zoom levels and reduce opacity for low zoom levels
 
@@ -191,6 +195,13 @@ const Map: React.FC<MapProps> = ({ className }) => {
               zoom: markerProps.zoom,
               bearing: markerProps.bearing,
               duration: 3000,
+            });
+            // Track the option selection event
+            TagManager.dataLayer({
+              dataLayer: {
+                event: 'option_select',
+                selected_option: markerProps.title,
+              },
             });
           }}
         >
