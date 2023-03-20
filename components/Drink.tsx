@@ -32,8 +32,6 @@ const Map: React.FC<MapProps> = ({ className }) => {
     };
     TagManager.initialize(tagManagerArgs);
 
-    console.log(tagManagerArgs.gtmId)
-
     // Track the page load event
     TagManager.dataLayer({
       dataLayer: {
