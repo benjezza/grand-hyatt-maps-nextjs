@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { RunMarkers } from '../pages/api/RunMarkers';
+import { BenMarkers } from '../pages/api/BenMarkers';
 
 interface MapProps {
   className?: string;
 }
 
-const sortedMarkers = RunMarkers.sort(
+const sortedMarkers = BenMarkers.sort(
   (a, b) => (a.order ?? 100) - (b.order ?? 100)
 );
 
@@ -27,7 +27,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
       const newMap = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: 'mapbox://styles/benjezza/clf97qk06000b01p7wyf9szeu',
-        center: [144.96968999086687, -37.814759644486415],
+        center: [144.963162, -37.814258],
         pitch: 50,
         zoom: 14,
       });
@@ -74,7 +74,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
     // }
 
     if (map) {
-      RunMarkers.forEach((markerProps) => {
+      BenMarkers.forEach((markerProps) => {
         const markerElement = document.createElement('div');
         markerElement.innerHTML = `
         <div style='position: relative'>
@@ -104,7 +104,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
         // Add click handler to marker to update the popup state and center/fly to the marker
         marker.getElement().addEventListener('click', () => {
-          setSelectedMarkerIndex(RunMarkers.indexOf(markerProps));
+          setSelectedMarkerIndex(BenMarkers.indexOf(markerProps));
           setPopup(newPopup);
           map.flyTo({
             center: [markerProps.lng, markerProps.lat],
@@ -118,7 +118,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
         map.on('zoom', () => {
           const zoomLevel = map.getZoom();
-          if (zoomLevel > 12) {
+          if (zoomLevel > 16) {
             marker.getElement().innerHTML = `
               <div style='position: relative'>
                 <h3 style='font-size: 1em; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;'>${markerProps.title}</h3>
@@ -140,7 +140,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
 
               </div>
             `;
-            marker.getElement().style.opacity = `${(zoomLevel - 8) / 6}`; // adjust the formula to change the rate of opacity change
+            marker.getElement().style.opacity = `${(zoomLevel - 10) / 6}`; // adjust the formula to change the rate of opacity change
           }
         });
       });
@@ -170,7 +170,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
           value={selectedMarkerIndex ?? ''}
           onChange={(event) => {
             const index = parseInt(event.target.value, 10);
-            const markerProps = RunMarkers[index];
+            const markerProps = BenMarkers[index];
             setSelectedMarkerIndex(index);
             map?.flyTo({
               center: [markerProps.lng, markerProps.lat],
@@ -186,7 +186,7 @@ const Map: React.FC<MapProps> = ({ className }) => {
           </option>
           {sortedMarkers.map((markerProps, index) => (
             <option
-              key={markerProps.index}
+              key={index}
               value={index}
               style={{ padding: '20px' }}
             >
