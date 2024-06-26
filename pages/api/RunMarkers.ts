@@ -81,7 +81,7 @@ export const RunMarkers: MarkerProps[] = [
     description:
       "The route takes you past some of Melbourne's most iconic landmarks, including the Crown Casino, Melbourne Exhibition Centre, and the Sea Life Melbourne Aquarium. The views along the river are stunning, with the sparkling water and lush greenery providing a scenic backdrop to your run.",
     image: './images/run/yarraLong.webp',
-    nav: 'https://maps.app.goo.gl/yCUkamfaCRnK7jXN6',
+    nav: 'https://maps.app.goo.gl/sW8Y6YeJSAgBP8DQA',
     color: altColor,
     zoom: 13.5,
     offsetX: 60,
